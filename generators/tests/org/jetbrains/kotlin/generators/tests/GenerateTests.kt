@@ -15,6 +15,8 @@ import org.jetbrains.kotlin.android.synthetic.test.AbstractAndroidBoxTest
 import org.jetbrains.kotlin.android.synthetic.test.AbstractAndroidBytecodeShapeTest
 import org.jetbrains.kotlin.android.synthetic.test.AbstractAndroidIrBoxTest
 import org.jetbrains.kotlin.android.synthetic.test.AbstractAndroidSyntheticPropertyDescriptorTest
+import org.jetbrains.kotlin.fir.plugin.fsi.runners.AbstractFirFsiBlackBoxTest
+import org.jetbrains.kotlin.fir.plugin.fsi.runners.AbstractFirFsiDiagnosticTest
 import org.jetbrains.kotlin.fir.plugin.runners.AbstractFirPluginBlackBoxCodegenTest
 import org.jetbrains.kotlin.fir.plugin.runners.AbstractFirPluginDiagnosticTest
 import org.jetbrains.kotlin.generators.TestGroup
@@ -405,6 +407,16 @@ fun main(args: Array<String>) {
         ) {
             testClass<AbstractAtomicfuJsIrTest> {
                 model("box/")
+            }
+        }
+
+        testGroup("plugins/function-scope-injector/tests-gen", "plugins/function-scope-injector/testData") {
+            testClass<AbstractFirFsiDiagnosticTest> {
+                model("diagnostics")
+            }
+
+            testClass<AbstractFirFsiBlackBoxTest> {
+                model("box")
             }
         }
     }

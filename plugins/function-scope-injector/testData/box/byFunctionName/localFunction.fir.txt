@@ -1,0 +1,20 @@
+FILE: localFunction.kt
+    public final fun foo(): R|kotlin/String| {
+        local final fun barWithHello(): R|kotlin/String| {
+            ^barWithHello R|/$fsi_byFunctionName_HELLO|
+        }
+
+        ^foo R|<local>/barWithHello|()
+    }
+    public final fun box(): R|kotlin/String| {
+        when () {
+            !=(R|/foo|(), String(Hello!)) ->  {
+                ^box String(Error)
+            }
+        }
+
+        ^box String(OK)
+    }
+FILE: __INJECTED GENERATED DECLARATIONS__.kt
+    public final val $fsi_byFunctionName_HELLO: R|kotlin/String| = String(Hello!)
+        public get(): R|kotlin/String|

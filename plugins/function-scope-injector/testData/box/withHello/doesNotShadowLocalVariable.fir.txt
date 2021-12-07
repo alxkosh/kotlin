@@ -1,0 +1,14 @@
+FILE: doesNotShadowLocalVariable.kt
+    @R|org/jetbrains/kotlin/fir/plugin/fsi/WithHello|() public final fun foo(): R|kotlin/String| {
+        lval HELLO: R|kotlin/String| = String(Hi!)
+        ^foo R|<local>/HELLO|
+    }
+    public final fun box(): R|kotlin/String| {
+        when () {
+            !=(R|/foo|(), String(Hi!)) ->  {
+                ^box String(Error)
+            }
+        }
+
+        ^box String(OK)
+    }

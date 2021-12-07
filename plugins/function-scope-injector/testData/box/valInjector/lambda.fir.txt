@@ -1,0 +1,30 @@
+FILE: lambda.kt
+    public final val l: R|() -> kotlin/String| = @R|org/jetbrains/kotlin/fir/plugin/fsi/InjectVal|(type = Q|org/jetbrains/kotlin/fir/plugin/fsi/InjectedValType|.R|org/jetbrains/kotlin/fir/plugin/fsi/InjectedValType.String|, name = String(s), value = String(str)) fun <anonymous>(): R|kotlin/String| <inline=Unknown>  {
+        ^ R|/$fsi_String_str|
+    }
+
+        public get(): R|() -> kotlin/String|
+    public final fun foo(f: R|() -> kotlin/String| = @R|org/jetbrains/kotlin/fir/plugin/fsi/InjectVal|(type = Q|org/jetbrains/kotlin/fir/plugin/fsi/InjectedValType|.R|org/jetbrains/kotlin/fir/plugin/fsi/InjectedValType.String|, name = String(s), value = String(str)) fun <anonymous>(): R|kotlin/String| <inline=Unknown>  {
+        ^ R|/$fsi_String_str|
+    }
+    ): R|kotlin/String| {
+        ^foo R|<local>/f|.R|SubstitutionOverride<kotlin/Function0.invoke: R|kotlin/String|>|()
+    }
+    public final fun box(): R|kotlin/String| {
+        when () {
+            !=(R|/l|.R|SubstitutionOverride<kotlin/Function0.invoke: R|kotlin/String|>|(), String(str)) ->  {
+                ^box String(Error)
+            }
+        }
+
+        when () {
+            !=(R|/foo|(), String(str)) ->  {
+                ^box String(Error)
+            }
+        }
+
+        ^box String(OK)
+    }
+FILE: __INJECTED GENERATED DECLARATIONS__.kt
+    public final val $fsi_String_str: R|kotlin/String| = String(str)
+        public get(): R|kotlin/String|

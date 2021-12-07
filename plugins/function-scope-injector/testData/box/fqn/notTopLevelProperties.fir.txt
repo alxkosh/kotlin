@@ -1,0 +1,41 @@
+FILE: main.kt
+    @R|org/jetbrains/kotlin/fir/plugin/fsi/InjectByFqn|(name = String(p), fqn = String(a.A.a)) @R|org/jetbrains/kotlin/fir/plugin/fsi/InjectByFqn|(name = String(r), fqn = String(a.B.b)) public final fun foo(): R|kotlin/String| {
+        ^foo <Unresolved name: p>#.R|kotlin/plus|(<Unresolved name: r>#)
+    }
+    public final fun box(): R|kotlin/String| {
+        when () {
+            !=(R|/foo|(), String(strAStrB)) ->  {
+                ^box String(Error)
+            }
+        }
+
+        ^box String(OK)
+    }
+FILE: a.kt
+    package a
+
+    public final object A : R|kotlin/Any| {
+        private constructor(): R|a/A| {
+            super<R|kotlin/Any|>()
+        }
+
+        public final const val a: R|kotlin/String| = String(strA)
+            public get(): R|kotlin/String|
+
+    }
+    public final class B : R|kotlin/Any| {
+        public constructor(): R|a/B| {
+            super<R|kotlin/Any|>()
+        }
+
+        public final companion object Companion : R|kotlin/Any| {
+            private constructor(): R|a/B.Companion| {
+                super<R|kotlin/Any|>()
+            }
+
+            public final const val b: R|kotlin/String| = String(strB)
+                public get(): R|kotlin/String|
+
+        }
+
+    }

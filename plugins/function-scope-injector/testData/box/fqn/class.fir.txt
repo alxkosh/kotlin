@@ -1,0 +1,30 @@
+FILE: main.kt
+    @R|org/jetbrains/kotlin/fir/plugin/fsi/InjectByFqn|(name = String(B), fqn = String(a.A)) public final fun foo(): R|kotlin/String| {
+        lval b: R|a/A| = R|a/A.A|()
+        ^foo R|<local>/b|.R|a/A.a|.R|kotlin/String.plus|(R|<local>/b|.R|a/A.foo|())
+    }
+    public final fun box(): R|kotlin/String| {
+        when () {
+            !=(R|/foo|(), String(astr)) ->  {
+                ^box String(Error)
+            }
+        }
+
+        ^box String(OK)
+    }
+FILE: a.kt
+    package a
+
+    public final class A : R|kotlin/Any| {
+        public constructor(): R|a/A| {
+            super<R|kotlin/Any|>()
+        }
+
+        public final val a: R|kotlin/String| = String(a)
+            public get(): R|kotlin/String|
+
+        public final fun foo(): R|kotlin/String| {
+            ^foo String(str)
+        }
+
+    }

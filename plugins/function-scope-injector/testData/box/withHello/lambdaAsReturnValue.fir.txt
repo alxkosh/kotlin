@@ -1,0 +1,16 @@
+FILE: lambdaAsReturnValue.kt
+    public final fun foo(): R|() -> kotlin/String| {
+        ^foo @R|org/jetbrains/kotlin/fir/plugin/fsi/WithHello|() fun <anonymous>(): <ERROR TYPE REF: Unresolved name: HELLO> <inline=Unknown>  {
+            ^ <Unresolved name: HELLO>#
+        }
+
+    }
+    public final fun box(): R|kotlin/String| {
+        when () {
+            !=(R|/foo|().R|SubstitutionOverride<kotlin/Function0.invoke: R|kotlin/String|>|(), String(Hello!)) ->  {
+                ^box String(Error)
+            }
+        }
+
+        ^box String(OK)
+    }

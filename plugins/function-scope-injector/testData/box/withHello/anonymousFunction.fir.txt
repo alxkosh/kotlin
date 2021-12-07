@@ -1,0 +1,18 @@
+FILE: anonymousFunction.kt
+    public final val foo: R|() -> kotlin/String| = @R|org/jetbrains/kotlin/fir/plugin/fsi/WithHello|() fun <anonymous>(): R|kotlin/String| <inline=Unknown>  {
+        ^ R|/$fsi_withHello_HELLO|
+    }
+
+        public get(): R|() -> kotlin/String|
+    public final fun box(): R|kotlin/String| {
+        when () {
+            !=(R|/foo|.R|SubstitutionOverride<kotlin/Function0.invoke: R|kotlin/String|>|(), String(Hello!)) ->  {
+                ^box String(Error)
+            }
+        }
+
+        ^box String(OK)
+    }
+FILE: __INJECTED GENERATED DECLARATIONS__.kt
+    public final val $fsi_withHello_HELLO: R|kotlin/String| = String(Hello!)
+        public get(): R|kotlin/String|

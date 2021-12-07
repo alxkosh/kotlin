@@ -334,6 +334,9 @@ include ":plugins:parcelize:parcelize-compiler",
 include ":plugins:lombok:lombok-compiler-plugin",
         ":kotlin-lombok"
 
+include ":plugins:function-scope-injector"
+include ":plugins:function-scope-injector:plugin-annotations"
+
 if (!buildProperties.inJpsBuildIdeaSync) {
     include ":prepare:ide-plugin-dependencies:android-extensions-compiler-plugin-for-ide",
             ":prepare:ide-plugin-dependencies:allopen-compiler-plugin-for-ide",

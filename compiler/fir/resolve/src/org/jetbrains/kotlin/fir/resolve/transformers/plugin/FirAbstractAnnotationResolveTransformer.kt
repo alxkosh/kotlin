@@ -10,6 +10,7 @@ import org.jetbrains.kotlin.fir.FirElement
 import org.jetbrains.kotlin.fir.FirSession
 import org.jetbrains.kotlin.fir.declarations.*
 import org.jetbrains.kotlin.fir.expressions.FirAnnotation
+import org.jetbrains.kotlin.fir.expressions.FirAnonymousFunctionExpression
 import org.jetbrains.kotlin.fir.expressions.FirStatement
 import org.jetbrains.kotlin.fir.resolve.ScopeSession
 import org.jetbrains.kotlin.fir.scopes.FirScope
@@ -34,7 +35,17 @@ internal abstract class FirAbstractAnnotationResolveTransformer<D, S>(
     }
 
     override fun transformProperty(property: FirProperty, data: D): FirProperty {
-        return transformDeclaration(property, data) as FirProperty
+        return transformDeclaration(property, data).also {
+            property.transformInitializer(this, data)
+        } as FirProperty
+    }
+
+    override fun transformAnonymousFunctionExpression(
+        anonymousFunctionExpression: FirAnonymousFunctionExpression,
+        data: D
+    ): FirAnonymousFunctionExpression {
+        anonymousFunctionExpression.transformAnonymousFunction(this, data)
+        return anonymousFunctionExpression
     }
 
     override fun transformRegularClass(
@@ -47,6 +58,17 @@ internal abstract class FirAbstractAnnotationResolveTransformer<D, S>(
             regularClass.transformSuperTypeRefs(this, data)
             afterTransformingChildren(state)
         } as FirStatement
+    }
+
+    override fun transformAnonymousFunction(
+        anonymousFunction: FirAnonymousFunction,
+        data: D
+    ): FirAnonymousFunction {
+        return transformDeclaration(anonymousFunction, data).also {
+            val state = beforeTransformingChildren(anonymousFunction)
+            anonymousFunction.transformValueParameters(this, data)
+            afterTransformingChildren(state)
+        } as FirAnonymousFunction
     }
 
     override fun transformSimpleFunction(
@@ -75,7 +97,9 @@ internal abstract class FirAbstractAnnotationResolveTransformer<D, S>(
         valueParameter: FirValueParameter,
         data: D
     ): FirStatement {
-        return transformDeclaration(valueParameter, data) as FirStatement
+        return transformDeclaration(valueParameter, data).also {
+            valueParameter.transformOtherChildren(this, data)
+        } as FirStatement
     }
 
     override fun transformTypeAlias(typeAlias: FirTypeAlias, data: D): FirTypeAlias {

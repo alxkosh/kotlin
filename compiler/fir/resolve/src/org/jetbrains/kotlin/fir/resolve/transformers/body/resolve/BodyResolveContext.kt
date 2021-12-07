@@ -17,6 +17,7 @@ import org.jetbrains.kotlin.fir.declarations.primaryConstructorIfAny
 import org.jetbrains.kotlin.fir.expressions.FirCallableReferenceAccess
 import org.jetbrains.kotlin.fir.expressions.FirExpression
 import org.jetbrains.kotlin.fir.expressions.FirWhenExpression
+import org.jetbrains.kotlin.fir.extensions.FirExtensionFunctionScope
 import org.jetbrains.kotlin.fir.resolve.*
 import org.jetbrains.kotlin.fir.resolve.calls.ImplicitExtensionReceiverValue
 import org.jetbrains.kotlin.fir.resolve.calls.ImplicitReceiverValue
@@ -508,24 +509,38 @@ class BodyResolveContext(
     }
 
     @OptIn(PrivateForInline::class)
+    fun <T> withFunctionScopeInjectorExtension(
+        function: FirFunction,
+        holder: SessionHolder,
+        f: () -> T
+    ): T = withTowerDataCleanup {
+        FirExtensionFunctionScope.create(function, holder.session)?.let {
+            addNonLocalTowerDataElement(it.asTowerDataElement(isLocal = false))
+        }
+        f()
+    }
+
+    @OptIn(PrivateForInline::class)
     fun <T> forFunctionBody(
         function: FirFunction,
         holder: SessionHolder,
         f: () -> T
     ): T {
-        return withTowerDataCleanup {
-            addLocalScope(FirLocalScope(holder.session))
-            if (function is FirSimpleFunction) {
-                // Make all value parameters available in the local scope so that even one parameter that refers to another parameter,
-                // which may not be initialized yet, can be resolved. [FirFunctionParameterChecker] will detect and report an error
-                // if an uninitialized parameter is accessed by a preceding parameter.
-                for (parameter in function.valueParameters) {
-                    storeVariable(parameter, holder.session)
+        return withFunctionScopeInjectorExtension(function, holder) {
+            withTowerDataCleanup {
+                addLocalScope(FirLocalScope(holder.session))
+                if (function is FirSimpleFunction) {
+                    // Make all value parameters available in the local scope so that even one parameter that refers to another parameter,
+                    // which may not be initialized yet, can be resolved. [FirFunctionParameterChecker] will detect and report an error
+                    // if an uninitialized parameter is accessed by a preceding parameter.
+                    for (parameter in function.valueParameters) {
+                        storeVariable(parameter, holder.session)
+                    }
+                    val receiverTypeRef = function.receiverTypeRef
+                    withLabelAndReceiverType(function.name, function, receiverTypeRef?.coneType, holder, f)
+                } else {
+                    f()
                 }
-                val receiverTypeRef = function.receiverTypeRef
-                withLabelAndReceiverType(function.name, function, receiverTypeRef?.coneType, holder, f)
-            } else {
-                f()
             }
         }
     }
@@ -567,16 +582,18 @@ class BodyResolveContext(
         if (mode is ResolutionMode.ContextDependent || mode is ResolutionMode.ContextDependentDelegate) {
             return f()
         }
-        return withTowerDataCleanup {
-            addLocalScope(FirLocalScope(holder.session))
-            val receiverTypeRef = anonymousFunction.receiverTypeRef
-            val labelName = anonymousFunction.label?.name?.let { Name.identifier(it) }
-            withContainer(anonymousFunction) {
-                withLabelAndReceiverType(labelName, anonymousFunction, receiverTypeRef?.coneType, holder) {
-                    if (mode is ResolutionMode.LambdaResolution) {
-                        withLambdaBeingAnalyzedInDependentContext(anonymousFunction.symbol, f)
-                    } else {
-                        f()
+        return withFunctionScopeInjectorExtension(anonymousFunction, holder) {
+            withTowerDataCleanup {
+                addLocalScope(FirLocalScope(holder.session))
+                val receiverTypeRef = anonymousFunction.receiverTypeRef
+                val labelName = anonymousFunction.label?.name?.let { Name.identifier(it) }
+                withContainer(anonymousFunction) {
+                    withLabelAndReceiverType(labelName, anonymousFunction, receiverTypeRef?.coneType, holder) {
+                        if (mode is ResolutionMode.LambdaResolution) {
+                            withLambdaBeingAnalyzedInDependentContext(anonymousFunction.symbol, f)
+                        } else {
+                            f()
+                        }
                     }
                 }
             }

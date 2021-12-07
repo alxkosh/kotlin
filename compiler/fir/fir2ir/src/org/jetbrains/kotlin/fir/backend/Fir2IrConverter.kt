@@ -452,6 +452,7 @@ class Fir2IrConverter(
             val allFirFiles = buildList {
                 addAll(firFiles)
                 addAll(session.createFilesWithGeneratedDeclarations())
+                addAll(session.createFilesWithInjectedGeneratedDeclarations())
             }
 
             converter.runSourcesConversion(

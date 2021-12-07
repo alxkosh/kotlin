@@ -1,0 +1,63 @@
+FILE: sameFunctionName.kt
+    @R|org/jetbrains/kotlin/fir/plugin/fsi/InjectVal|(type = Q|org/jetbrains/kotlin/fir/plugin/fsi/InjectedValType|.R|org/jetbrains/kotlin/fir/plugin/fsi/InjectedValType.String|, name = String(s), value = String(strA)) public final fun foo(): R|kotlin/String| {
+        ^foo R|/$fsi_String_strA|
+    }
+    @R|org/jetbrains/kotlin/fir/plugin/fsi/InjectVal|(type = Q|org/jetbrains/kotlin/fir/plugin/fsi/InjectedValType|.R|org/jetbrains/kotlin/fir/plugin/fsi/InjectedValType.String|, name = String(s), value = String(strB)) public final fun foo(i: R|kotlin/Int|): R|kotlin/String| {
+        ^foo R|/$fsi_String_strB|.R|kotlin/String.plus|(R|<local>/i|)
+    }
+    @R|org/jetbrains/kotlin/fir/plugin/fsi/InjectVal|(type = Q|org/jetbrains/kotlin/fir/plugin/fsi/InjectedValType|.R|org/jetbrains/kotlin/fir/plugin/fsi/InjectedValType.String|, name = String(s), value = String(strC)) public final fun <T> foo(t: R|T|): R|kotlin/String| {
+        ^foo R|/$fsi_String_strC|.R|kotlin/String.plus|(R|<local>/t|)
+    }
+    @R|org/jetbrains/kotlin/fir/plugin/fsi/InjectVal|(type = Q|org/jetbrains/kotlin/fir/plugin/fsi/InjectedValType|.R|org/jetbrains/kotlin/fir/plugin/fsi/InjectedValType.String|, name = String(s), value = String(strD)) public final fun <T> foo(vararg ts: R|kotlin/Array<out T>|): R|kotlin/String| {
+        ^foo R|/$fsi_String_strD|.R|kotlin/String.plus|(R|<local>/ts|.R|kotlin/collections/joinToString|<R|T|>(separator = String()))
+    }
+    @R|org/jetbrains/kotlin/fir/plugin/fsi/InjectVal|(type = Q|org/jetbrains/kotlin/fir/plugin/fsi/InjectedValType|.R|org/jetbrains/kotlin/fir/plugin/fsi/InjectedValType.String|, name = String(s), value = String(strE)) public final fun foo(f: R|() -> kotlin/String|): R|kotlin/String| {
+        ^foo R|/$fsi_String_strE|.R|kotlin/String.plus|(R|<local>/f|.R|SubstitutionOverride<kotlin/Function0.invoke: R|kotlin/String|>|())
+    }
+    public final fun box(): R|kotlin/String| {
+        when () {
+            !=(R|/foo|(), String(strA)) ->  {
+                ^box String(Error)
+            }
+        }
+
+        when () {
+            !=(R|/foo|(Int(1)), String(strB1)) ->  {
+                ^box String(Error)
+            }
+        }
+
+        when () {
+            !=(R|/foo|<R|kotlin/Double|>(Double(2.0)), String(strC2.0)) ->  {
+                ^box String(Error)
+            }
+        }
+
+        when () {
+            !=(R|/foo|<R|kotlin/Int|>(vararg(Int(1), Int(2), Int(3))), String(strD123)) ->  {
+                ^box String(Error)
+            }
+        }
+
+        when () {
+            !=(R|/foo|(<L> = foo@fun <anonymous>(): R|kotlin/String| <inline=NoInline>  {
+                ^ String(str)
+            }
+            ), String(strEstr)) ->  {
+                ^box String(Error)
+            }
+        }
+
+        ^box String(OK)
+    }
+FILE: __INJECTED GENERATED DECLARATIONS__.kt
+    public final val $fsi_String_strA: R|kotlin/String| = String(strA)
+        public get(): R|kotlin/String|
+    public final val $fsi_String_strB: R|kotlin/String| = String(strB)
+        public get(): R|kotlin/String|
+    public final val $fsi_String_strC: R|kotlin/String| = String(strC)
+        public get(): R|kotlin/String|
+    public final val $fsi_String_strD: R|kotlin/String| = String(strD)
+        public get(): R|kotlin/String|
+    public final val $fsi_String_strE: R|kotlin/String| = String(strE)
+        public get(): R|kotlin/String|

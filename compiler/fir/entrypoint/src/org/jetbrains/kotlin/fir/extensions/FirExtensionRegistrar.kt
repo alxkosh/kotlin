@@ -28,6 +28,7 @@ abstract class FirExtensionRegistrar : FirExtensionRegistrarAdapter() {
             FirAdditionalCheckersExtension::class,
             FirSupertypeGenerationExtension::class,
             FirTypeAttributeExtension::class,
+            FirFunctionScopeInjectorExtension::class
         )
     }
 
@@ -60,6 +61,11 @@ abstract class FirExtensionRegistrar : FirExtensionRegistrarAdapter() {
         @JvmName("plusTypeAttributeExtension")
         operator fun ((FirSession) -> FirTypeAttributeExtension).unaryPlus() {
             registerExtension(FirTypeAttributeExtension::class, FirTypeAttributeExtension.Factory { this.invoke(it) })
+        }
+
+        @JvmName("plusFunctionScopeInjectorExtension")
+        operator fun ((FirSession) -> FirFunctionScopeInjectorExtension).unaryPlus() {
+            registerExtension(FirFunctionScopeInjectorExtension::class, FirFunctionScopeInjectorExtension.Factory { this.invoke(it)})
         }
     }
 

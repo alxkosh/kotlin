@@ -1,0 +1,23 @@
+FILE: memberFunction.kt
+    public final class Foo : R|kotlin/Any| {
+        public constructor(): R|Foo| {
+            super<R|kotlin/Any|>()
+        }
+
+        public final fun fooWithHello(): R|kotlin/String| {
+            ^fooWithHello R|/$fsi_byFunctionName_HELLO|
+        }
+
+    }
+    public final fun box(): R|kotlin/String| {
+        when () {
+            !=(R|/Foo.Foo|().R|/Foo.fooWithHello|(), String(Hello!)) ->  {
+                ^box String(Error)
+            }
+        }
+
+        ^box String(OK)
+    }
+FILE: __INJECTED GENERATED DECLARATIONS__.kt
+    public final val $fsi_byFunctionName_HELLO: R|kotlin/String| = String(Hello!)
+        public get(): R|kotlin/String|

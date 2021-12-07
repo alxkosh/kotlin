@@ -1,0 +1,55 @@
+FILE: main.kt
+    public final fun box(): R|kotlin/String| {
+        when () {
+            !=(Q|a|.R|a/foo|(Int(1)), String(strA1a)) ->  {
+                ^box String(Error)
+            }
+        }
+
+        when () {
+            !=(Q|b|.R|b/foo|(Int(2)), String(strB2b)) ->  {
+                ^box String(Error)
+            }
+        }
+
+        when () {
+            !=(Q|a|.R|a/bar|(Int(1)), Int(3)) ->  {
+                ^box String(Error)
+            }
+        }
+
+        when () {
+            !=(Q|b|.R|b/bar|(Int(2)), Int(6)) ->  {
+                ^box String(Error)
+            }
+        }
+
+        ^box String(OK)
+    }
+FILE: a.kt
+    package a
+
+    @R|org/jetbrains/kotlin/fir/plugin/fsi/InjectVal|(type = Q|org/jetbrains/kotlin/fir/plugin/fsi/InjectedValType|.R|org/jetbrains/kotlin/fir/plugin/fsi/InjectedValType.String|, name = String(s), value = String(strA)) public final fun foo(i: R|kotlin/Int|): R|kotlin/String| {
+        ^foo R|/$fsi_String_strA|.R|kotlin/String.plus|(R|<local>/i|).R|kotlin/String.plus|(String(a))
+    }
+    @R|org/jetbrains/kotlin/fir/plugin/fsi/InjectVal|(type = Q|org/jetbrains/kotlin/fir/plugin/fsi/InjectedValType|.R|org/jetbrains/kotlin/fir/plugin/fsi/InjectedValType.Int|, name = String(v), value = String(1)) public final fun bar(i: R|kotlin/Int|): R|kotlin/Int| {
+        ^bar R|/$fsi_Int_1|.R|kotlin/Int.plus|(R|<local>/i|).R|kotlin/Int.plus|(Int(1))
+    }
+FILE: b.kt
+    package b
+
+    @R|org/jetbrains/kotlin/fir/plugin/fsi/InjectVal|(type = Q|org/jetbrains/kotlin/fir/plugin/fsi/InjectedValType|.R|org/jetbrains/kotlin/fir/plugin/fsi/InjectedValType.String|, name = String(s), value = String(strB)) public final fun foo(i: R|kotlin/Int|): R|kotlin/String| {
+        ^foo R|/$fsi_String_strB|.R|kotlin/String.plus|(R|<local>/i|).R|kotlin/String.plus|(String(b))
+    }
+    @R|org/jetbrains/kotlin/fir/plugin/fsi/InjectVal|(type = Q|org/jetbrains/kotlin/fir/plugin/fsi/InjectedValType|.R|org/jetbrains/kotlin/fir/plugin/fsi/InjectedValType.Int|, name = String(v), value = String(2)) public final fun bar(i: R|kotlin/Int|): R|kotlin/Int| {
+        ^bar R|/$fsi_Int_2|.R|kotlin/Int.plus|(R|<local>/i|).R|kotlin/Int.plus|(Int(2))
+    }
+FILE: __INJECTED GENERATED DECLARATIONS__.kt
+    public final val $fsi_String_strA: R|kotlin/String| = String(strA)
+        public get(): R|kotlin/String|
+    public final val $fsi_Int_1: R|kotlin/Int| = Int(1)
+        public get(): R|kotlin/Int|
+    public final val $fsi_String_strB: R|kotlin/String| = String(strB)
+        public get(): R|kotlin/String|
+    public final val $fsi_Int_2: R|kotlin/Int| = Int(2)
+        public get(): R|kotlin/Int|

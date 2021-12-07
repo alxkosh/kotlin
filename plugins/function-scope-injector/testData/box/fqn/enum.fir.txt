@@ -1,0 +1,59 @@
+FILE: main.kt
+    @R|org/jetbrains/kotlin/fir/plugin/fsi/InjectByFqn|(name = String(E), fqn = String(a.A)) public final fun foo(): R|kotlin/String| {
+        ^foo Q|a/A|.R|a/A.B|.R|SubstitutionOverride<a/A.toString: R|kotlin/String|>|().R|kotlin/String.plus|(Q|a/A|.R|a/A.C|)
+    }
+    @R|org/jetbrains/kotlin/fir/plugin/fsi/InjectByFqn|(name = String(F), fqn = String(a.A.B)) @R|org/jetbrains/kotlin/fir/plugin/fsi/InjectByFqn|(name = String(G), fqn = String(a.A.C)) public final fun bar(): R|kotlin/String| {
+        ^bar R|a/A.B|.R|SubstitutionOverride<a/A.toString: R|kotlin/String|>|().R|kotlin/String.plus|(R|a/A.C|)
+    }
+    public final fun box(): R|kotlin/String| {
+        when () {
+            !=(R|/foo|(), String(strBstrC)) ->  {
+                ^box String(Error)
+            }
+        }
+
+        when () {
+            !=(R|/bar|(), String(strBstrC)) ->  {
+                ^box String(Error)
+            }
+        }
+
+        ^box String(OK)
+    }
+FILE: a.kt
+    package a
+
+    public final enum class A : R|kotlin/Enum<a/A>| {
+        private constructor(): R|a/A| {
+            super<R|kotlin/Enum<a/A>|>()
+        }
+
+        public final static enum entry B: R|a/A| = object : R|a/A| {
+            private constructor(): R|<anonymous>| {
+                super<R|a/A|>()
+            }
+
+            public final override fun toString(): R|kotlin/String| {
+                ^toString String(strB)
+            }
+
+        }
+
+        public final static enum entry C: R|a/A| = object : R|a/A| {
+            private constructor(): R|<anonymous>| {
+                super<R|a/A|>()
+            }
+
+            public final override fun toString(): R|kotlin/String| {
+                ^toString String(strC)
+            }
+
+        }
+
+        public final static fun values(): R|kotlin/Array<a/A>| {
+        }
+
+        public final static fun valueOf(value: R|kotlin/String|): R|a/A| {
+        }
+
+    }

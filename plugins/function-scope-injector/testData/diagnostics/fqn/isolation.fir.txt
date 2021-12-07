@@ -1,0 +1,16 @@
+FILE: main.kt
+    public final fun println(s: R|kotlin/String|): R|kotlin/Unit| {
+    }
+    @R|org/jetbrains/kotlin/fir/plugin/fsi/InjectByFqn|(name = String(p), fqn = String(a.s)) public final fun foo(): R|kotlin/Unit| {
+        R|/println|(R|a/s|)
+        R|/println|(<Unresolved name: s>#)
+    }
+    public final fun bar(): R|kotlin/Unit| {
+        R|/println|(<Unresolved name: s>#)
+        R|/println|(<Unresolved name: p>#)
+    }
+FILE: a.kt
+    package a
+
+    public final val s: R|kotlin/String| = String(str)
+        public get(): R|kotlin/String|

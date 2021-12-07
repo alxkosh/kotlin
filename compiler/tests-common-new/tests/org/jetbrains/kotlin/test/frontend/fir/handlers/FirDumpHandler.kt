@@ -7,6 +7,7 @@ package org.jetbrains.kotlin.test.frontend.fir.handlers
 
 import org.jetbrains.kotlin.fir.FirRenderer
 import org.jetbrains.kotlin.fir.FirSession
+import org.jetbrains.kotlin.fir.backend.createFilesWithInjectedGeneratedDeclarations
 import org.jetbrains.kotlin.fir.backend.createFilesWithGeneratedDeclarations
 import org.jetbrains.kotlin.fir.declarations.FirRegularClass
 import org.jetbrains.kotlin.fir.extensions.generatedMembers
@@ -37,6 +38,7 @@ class FirDumpHandler(
         val allFiles = buildList {
             addAll(firFiles.values)
             addAll(info.session.createFilesWithGeneratedDeclarations())
+            addAll(info.session.createFilesWithInjectedGeneratedDeclarations())
         }
 
         val renderer = FirRendererWithGeneratedDeclarations(info.session, builderForModule)

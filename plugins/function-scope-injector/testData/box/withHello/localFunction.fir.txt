@@ -1,0 +1,17 @@
+FILE: localFunction.kt
+    public final fun foo(): R|kotlin/String| {
+        @R|org/jetbrains/kotlin/fir/plugin/fsi/WithHello|() local final fun bar(): R|kotlin/String| {
+            ^bar <Unresolved name: HELLO>#
+        }
+
+        ^foo R|<local>/bar|()
+    }
+    public final fun box(): R|kotlin/String| {
+        when () {
+            !=(R|/foo|(), String(Hello!)) ->  {
+                ^box String(Error)
+            }
+        }
+
+        ^box String(OK)
+    }

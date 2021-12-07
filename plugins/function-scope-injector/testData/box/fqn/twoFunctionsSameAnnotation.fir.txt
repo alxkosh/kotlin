@@ -1,0 +1,27 @@
+FILE: main.kt
+    @R|org/jetbrains/kotlin/fir/plugin/fsi/InjectByFqn|(name = String(s), fqn = String(a.s)) public final fun foo(): R|kotlin/String| {
+        ^foo R|a/s|
+    }
+    @R|org/jetbrains/kotlin/fir/plugin/fsi/InjectByFqn|(name = String(s), fqn = String(a.s)) public final fun bar(): R|kotlin/String| {
+        ^bar R|a/s|
+    }
+    public final fun box(): R|kotlin/String| {
+        when () {
+            !=(R|/foo|(), String(str)) ->  {
+                ^box String(Error)
+            }
+        }
+
+        when () {
+            !=(R|/bar|(), String(str)) ->  {
+                ^box String(Error)
+            }
+        }
+
+        ^box String(OK)
+    }
+FILE: a.kt
+    package a
+
+    public final val s: R|kotlin/String| = String(str)
+        public get(): R|kotlin/String|

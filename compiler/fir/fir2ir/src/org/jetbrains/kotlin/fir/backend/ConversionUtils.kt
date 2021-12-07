@@ -28,6 +28,7 @@ import org.jetbrains.kotlin.fir.extensions.FirExtensionApiInternals
 import org.jetbrains.kotlin.fir.extensions.declarationGenerators
 import org.jetbrains.kotlin.fir.extensions.extensionService
 import org.jetbrains.kotlin.fir.extensions.generatedDeclarationsSymbolProvider
+import org.jetbrains.kotlin.fir.extensions.functionScopeInjectors
 import org.jetbrains.kotlin.fir.expressions.impl.FirNoReceiverExpression
 import org.jetbrains.kotlin.fir.references.FirErrorNamedReference
 import org.jetbrains.kotlin.fir.references.FirReference
@@ -59,6 +60,7 @@ import org.jetbrains.kotlin.ir.types.*
 import org.jetbrains.kotlin.ir.types.impl.IrErrorTypeImpl
 import org.jetbrains.kotlin.ir.util.SymbolTable
 import org.jetbrains.kotlin.ir.util.functions
+import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.Name
 import org.jetbrains.kotlin.name.SpecialNames
 import org.jetbrains.kotlin.name.StandardClassIds
@@ -661,6 +663,23 @@ fun FirSession.createFilesWithGeneratedDeclarations(): List<FirFile> {
                     .mapNotNull { symbolProvider.getClassLikeSymbolByClassId(it)?.fir }
             }
         }
+    }
+}
+
+fun FirSession.createFilesWithInjectedGeneratedDeclarations(): List<FirFile> {
+    val declarations = extensionService.functionScopeInjectors.flatMap { it.topLevelGeneratedDeclarations }
+    return if (declarations.isNotEmpty()) {
+        listOf(buildFile {
+            origin = FirDeclarationOrigin.Synthetic
+            moduleData = this@createFilesWithInjectedGeneratedDeclarations.moduleData
+            packageDirective = buildPackageDirective {
+                this.packageFqName = FqName.ROOT
+            }
+            name = "__INJECTED GENERATED DECLARATIONS__.kt"
+            this.declarations += declarations
+        })
+    } else {
+        emptyList()
     }
 }
 

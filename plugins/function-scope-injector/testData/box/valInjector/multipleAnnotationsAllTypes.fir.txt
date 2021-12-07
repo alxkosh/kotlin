@@ -1,0 +1,41 @@
+FILE: multipleAnnotationsAllTypes.kt
+    @R|org/jetbrains/kotlin/fir/plugin/fsi/InjectVal|(type = Q|org/jetbrains/kotlin/fir/plugin/fsi/InjectedValType|.R|org/jetbrains/kotlin/fir/plugin/fsi/InjectedValType.Boolean|, name = String(bool), value = String(false)) @R|org/jetbrains/kotlin/fir/plugin/fsi/InjectVal|(type = Q|org/jetbrains/kotlin/fir/plugin/fsi/InjectedValType|.R|org/jetbrains/kotlin/fir/plugin/fsi/InjectedValType.Byte|, name = String(b), value = String(0)) @R|org/jetbrains/kotlin/fir/plugin/fsi/InjectVal|(type = Q|org/jetbrains/kotlin/fir/plugin/fsi/InjectedValType|.R|org/jetbrains/kotlin/fir/plugin/fsi/InjectedValType.Short|, name = String(s), value = String(1)) @R|org/jetbrains/kotlin/fir/plugin/fsi/InjectVal|(type = Q|org/jetbrains/kotlin/fir/plugin/fsi/InjectedValType|.R|org/jetbrains/kotlin/fir/plugin/fsi/InjectedValType.Int|, name = String(i), value = String(2)) @R|org/jetbrains/kotlin/fir/plugin/fsi/InjectVal|(type = Q|org/jetbrains/kotlin/fir/plugin/fsi/InjectedValType|.R|org/jetbrains/kotlin/fir/plugin/fsi/InjectedValType.Long|, name = String(l), value = String(-3)) @R|org/jetbrains/kotlin/fir/plugin/fsi/InjectVal|(type = Q|org/jetbrains/kotlin/fir/plugin/fsi/InjectedValType|.R|org/jetbrains/kotlin/fir/plugin/fsi/InjectedValType.Float|, name = String(f), value = String(4.0)) @R|org/jetbrains/kotlin/fir/plugin/fsi/InjectVal|(type = Q|org/jetbrains/kotlin/fir/plugin/fsi/InjectedValType|.R|org/jetbrains/kotlin/fir/plugin/fsi/InjectedValType.Double|, name = String(d), value = String(5.0)) @R|org/jetbrains/kotlin/fir/plugin/fsi/InjectVal|(type = Q|org/jetbrains/kotlin/fir/plugin/fsi/InjectedValType|.R|org/jetbrains/kotlin/fir/plugin/fsi/InjectedValType.Char|, name = String(c), value = String(c)) @R|org/jetbrains/kotlin/fir/plugin/fsi/InjectVal|(type = Q|org/jetbrains/kotlin/fir/plugin/fsi/InjectedValType|.R|org/jetbrains/kotlin/fir/plugin/fsi/InjectedValType.String|, name = String(str), value = String(str)) public final fun foo(): R|kotlin/String| {
+        when () {
+            R|/$fsi_Boolean_false|.R|kotlin/Boolean.not|() ->  {
+                lval r: R|kotlin/Double| = R|/$fsi_Byte_0|.R|kotlin/Byte.plus|(R|/$fsi_Short_1|).R|kotlin/Int.plus|(R|/$fsi_Int_2|).R|kotlin/Int.plus|(R|/$fsi_Long_$45$3|).R|kotlin/Long.plus|(R|/$fsi_Float_4$46$0|).R|kotlin/Float.plus|(R|/$fsi_Double_5$46$0|)
+                ^foo R|/$fsi_String_str|.R|kotlin/String.plus|(R|/$fsi_Char_c|).R|kotlin/String.plus|(R|<local>/r|)
+            }
+            else ->  {
+                ^foo String(Error)
+            }
+        }
+
+    }
+    public final fun box(): R|kotlin/String| {
+        when () {
+            !=(R|/foo|(), String(strc9.0)) ->  {
+                ^box String(Error)
+            }
+        }
+
+        ^box String(OK)
+    }
+FILE: __INJECTED GENERATED DECLARATIONS__.kt
+    public final val $fsi_Boolean_false: R|kotlin/Boolean| = Boolean(false)
+        public get(): R|kotlin/Boolean|
+    public final val $fsi_Byte_0: R|kotlin/Byte| = Byte(0)
+        public get(): R|kotlin/Byte|
+    public final val $fsi_Short_1: R|kotlin/Short| = Short(1)
+        public get(): R|kotlin/Short|
+    public final val $fsi_Int_2: R|kotlin/Int| = Int(2)
+        public get(): R|kotlin/Int|
+    public final val $fsi_Long_$45$3: R|kotlin/Long| = Long(-3)
+        public get(): R|kotlin/Long|
+    public final val $fsi_Float_4$46$0: R|kotlin/Float| = Float(4.0)
+        public get(): R|kotlin/Float|
+    public final val $fsi_Double_5$46$0: R|kotlin/Double| = Double(5.0)
+        public get(): R|kotlin/Double|
+    public final val $fsi_String_str: R|kotlin/String| = String(str)
+        public get(): R|kotlin/String|
+    public final val $fsi_Char_c: R|kotlin/Char| = Char(c)
+        public get(): R|kotlin/Char|

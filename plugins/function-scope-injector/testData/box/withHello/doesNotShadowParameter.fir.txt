@@ -1,0 +1,13 @@
+FILE: doesNotShadowParameter.kt
+    @R|org/jetbrains/kotlin/fir/plugin/fsi/WithHello|() public final fun foo(HELLO: R|kotlin/String|): R|kotlin/String| {
+        ^foo R|<local>/HELLO|
+    }
+    public final fun box(): R|kotlin/String| {
+        when () {
+            !=(R|/foo|(String(Hi!)), String(Hi!)) ->  {
+                ^box String(Error)
+            }
+        }
+
+        ^box String(OK)
+    }

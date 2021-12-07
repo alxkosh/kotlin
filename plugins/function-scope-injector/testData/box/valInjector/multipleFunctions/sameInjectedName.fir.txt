@@ -1,0 +1,27 @@
+FILE: sameInjectedName.kt
+    @R|org/jetbrains/kotlin/fir/plugin/fsi/InjectVal|(type = Q|org/jetbrains/kotlin/fir/plugin/fsi/InjectedValType|.R|org/jetbrains/kotlin/fir/plugin/fsi/InjectedValType.String|, name = String(s), value = String(strA)) public final fun foo(): R|kotlin/String| {
+        ^foo R|/$fsi_String_strA|
+    }
+    @R|org/jetbrains/kotlin/fir/plugin/fsi/InjectVal|(type = Q|org/jetbrains/kotlin/fir/plugin/fsi/InjectedValType|.R|org/jetbrains/kotlin/fir/plugin/fsi/InjectedValType.String|, name = String(s), value = String(strB)) public final fun bar(): R|kotlin/String| {
+        ^bar R|/$fsi_String_strB|
+    }
+    public final fun box(): R|kotlin/String| {
+        when () {
+            !=(R|/foo|(), String(strA)) ->  {
+                ^box String(Error)
+            }
+        }
+
+        when () {
+            !=(R|/bar|(), String(strB)) ->  {
+                ^box String(Error)
+            }
+        }
+
+        ^box String(OK)
+    }
+FILE: __INJECTED GENERATED DECLARATIONS__.kt
+    public final val $fsi_String_strA: R|kotlin/String| = String(strA)
+        public get(): R|kotlin/String|
+    public final val $fsi_String_strB: R|kotlin/String| = String(strB)
+        public get(): R|kotlin/String|

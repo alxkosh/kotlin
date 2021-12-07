@@ -1,0 +1,25 @@
+FILE: twoFunctions.kt
+    public final fun fooWithHello(): R|kotlin/String| {
+        ^fooWithHello R|/$fsi_byFunctionName_HELLO|
+    }
+    public final fun barWithHello(): R|kotlin/String| {
+        ^barWithHello R|/$fsi_byFunctionName_HELLO|.R|kotlin/String.plus|(String(!))
+    }
+    public final fun box(): R|kotlin/String| {
+        when () {
+            !=(R|/fooWithHello|(), String(Hello!)) ->  {
+                ^box String(Error)
+            }
+        }
+
+        when () {
+            !=(R|/barWithHello|(), String(Hello!!)) ->  {
+                ^box String(Error)
+            }
+        }
+
+        ^box String(OK)
+    }
+FILE: __INJECTED GENERATED DECLARATIONS__.kt
+    public final val $fsi_byFunctionName_HELLO: R|kotlin/String| = String(Hello!)
+        public get(): R|kotlin/String|
